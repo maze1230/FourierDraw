@@ -28,6 +28,8 @@ export class Illust {
     this.points = [];
     this.start = undefined;
     this.penIsDown = false;
+
+    this.ctx?.clearRect(0, 0, this.canvasRect.width, this.canvasRect.height);
   }
 
   private position(e: MouseEvent): { x: number, y: number } {
@@ -91,5 +93,8 @@ export class Illust {
     const { x, y } = this.position(e);
     console.log(x + ", " + y + ": mouseUp");
     this.penIsDown = false;
+
+    console.log("elapsed time: " + this.points[this.points.length - 1].time);
+    console.log("No. of records: " + this.points.length);
   }
 }

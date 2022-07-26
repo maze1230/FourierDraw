@@ -1,8 +1,5 @@
-body {
-  margin: 10px;
-}
-
 #draw-canvas {
+  margin: 0 auto;
   display: flex;
   border: 1px solid #cccccc;
 }
