@@ -29,7 +29,11 @@ export class Illust {
     this.start = undefined;
     this.penIsDown = false;
 
+    if (!this.ctx) {
+      console.log("failed to clearing canvas");
+    }
     this.ctx?.clearRect(0, 0, this.canvasRect.width, this.canvasRect.height);
+    this.ctx?.beginPath();
   }
 
   private position(e: MouseEvent): { x: number, y: number } {
