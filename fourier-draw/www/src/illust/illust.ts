@@ -2,7 +2,7 @@ import { Point } from "./point"
 
 export class Illust {
   points: Point[];
-  start: number | undefined;
+  startTime: number | undefined;
   penIsDown: boolean;
 
   canvas: HTMLCanvasElement;
@@ -26,7 +26,7 @@ export class Illust {
 
   private initialize() {
     this.points = [];
-    this.start = undefined;
+    this.startTime = undefined;
     this.penIsDown = false;
 
     if (!this.ctx) {
@@ -53,8 +53,8 @@ export class Illust {
   addPoint(e: MouseEvent): Point {
     const timestamp: number = Date.now();
 
-    if (!this.start) {
-      this.start = timestamp;
+    if (!this.startTime) {
+      this.startTime = timestamp;
     }
 
     const { x, y } = this.position(e);
@@ -62,7 +62,7 @@ export class Illust {
     this.points.push({
       x,
       y,
-      time: timestamp - this.start,
+      time: timestamp - this.startTime,
     });
 
     return this.points[this.points.length - 1];
@@ -100,5 +100,9 @@ export class Illust {
 
     console.log("elapsed time: " + this.points[this.points.length - 1].time);
     console.log("No. of records: " + this.points.length);
+  }
+
+  getPoints(): Point[] {
+    return this.points;
   }
 }

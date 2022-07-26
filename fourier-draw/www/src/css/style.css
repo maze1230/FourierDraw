@@ -1,5 +1,11 @@
 #draw-canvas {
-  margin: 0 auto;
   display: flex;
+  margin: 50px auto;
+  border: 1px solid #cccccc;
+}
+
+#play-canvas {
+  display: flex;
+  margin: 50px auto;
   border: 1px solid #cccccc;
 }
