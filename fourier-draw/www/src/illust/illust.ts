@@ -96,6 +96,7 @@ export class Illust {
   mouseUpHandler(e: MouseEvent) {
     const { x, y } = this.position(e);
     console.log(x + ", " + y + ": mouseUp");
+    this.addPoint(e);
     this.penIsDown = false;
 
     console.log("elapsed time: " + this.points[this.points.length - 1].time);
