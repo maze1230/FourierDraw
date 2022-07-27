@@ -1,0 +1,5 @@
+# Fourier Draw
+
+適当に一筆書きで書いた絵のx座標とy座標をそれぞれFourier級数展開し、時間経過とともに描写する
+
+WebassemblyとRustの練習なので、Fourier級数展開はRustでも行うようにしてTypescriptの実装と比較したい
