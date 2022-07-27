@@ -1,18 +1,18 @@
 export class FourierSeries {
-  xs_sample: Float64Array;
-  ys_sample: Float64Array;
-  A: Float64Array;
-  B: Float64Array;
+  xs_sample: Float32Array;
+  ys_sample: Float32Array;
+  A: Float32Array;
+  B: Float32Array;
   period: number;
   num_terms: number;
 
-  constructor(xs: Float64Array, ys: Float64Array, num_terms: number = 10) {
+  constructor(xs: Float32Array, ys: Float32Array, num_terms: number = 10) {
     this.xs_sample = xs;
     this.ys_sample = ys;
     this.num_terms = num_terms;
 
-    this.A = new Float64Array(this.num_terms + 1);
-    this.B = new Float64Array(this.num_terms + 1);
+    this.A = new Float32Array(this.num_terms + 1);
+    this.B = new Float32Array(this.num_terms + 1);
     this.period = this.xs_sample[this.xs_sample.length - 1];
 
     this.calc();
@@ -61,19 +61,19 @@ export class FourierSeries {
     return { addA, addB };
   }
 
-  getPoints(xs: Float64Array | undefined, fps: number = 60)
-    : { xs: Float64Array, ys: Float64Array } {
+  getPoints(xs: Float32Array | undefined, fps: number = 60)
+    : { xs: Float32Array, ys: Float32Array } {
 
     const msecPerFrame = 1000 / fps;
 
     if (!xs) {
       const ts: number[] = [];
 
-      for (let t = 0; t < this.period; t += msecPerFrame) {
+      for (let t = msecPerFrame * 2; t < this.period - msecPerFrame * 2; t += msecPerFrame) {
         ts.push(t);
       }
 
-      xs = new Float64Array(ts);
+      xs = new Float32Array(ts);
     }
 
     const ys = this.calcPoints(xs);
@@ -81,8 +81,8 @@ export class FourierSeries {
     return { xs, ys };
   }
 
-  private calcPoints(xs: Float64Array): Float64Array {
-    const ys = new Float64Array(xs.length);
+  private calcPoints(xs: Float32Array): Float32Array {
+    const ys = new Float32Array(xs.length);
 
     for (let i = 0; i < xs.length; i++) {
       const x = xs[i];

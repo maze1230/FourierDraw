@@ -6,9 +6,9 @@ type KeyPoint = "x" | "y" | "time";
 export class FourierSeries2D {
   num_terms: number;
 
-  xs: Float64Array;
-  ys: Float64Array;
-  ts: Float64Array;
+  xs: Float32Array;
+  ys: Float32Array;
+  ts: Float32Array;
 
   FSx: FourierSeries;
   FSy: FourierSeries;
@@ -21,13 +21,11 @@ export class FourierSeries2D {
 
     this.num_terms = num_terms;
 
-    this.xs = new Float64Array(divided.x);
-    this.ys = new Float64Array(divided.y);
-    this.ts = new Float64Array(divided.time);
+    this.xs = new Float32Array(divided.x);
+    this.ys = new Float32Array(divided.y);
+    this.ts = new Float32Array(divided.time);
 
-    console.log('calculating FSx');
     this.FSx = new FourierSeries(this.ts, this.xs, num_terms);
-    console.log('calculating FSy');
     this.FSy = new FourierSeries(this.ts, this.ys, num_terms);
   }
 
@@ -37,16 +35,8 @@ export class FourierSeries2D {
 
     const points: Point[] = [];
 
-    console.log('xs_length: ' + xs.length);
-    console.log('ys_length: ' + ys.length);
-    console.log('ts_length: ' + ts.length);
-
     for (let i = 0; i < ts.length; i++) {
       points.push( { x: xs[i], y: ys[i], time: ts[i] });
-
-      if (i % 20 == 0) {
-        console.log("x: " + xs[i] + ", y: " + ys[i] + ", t: " + ts[i]);
-      }
     }
 
     return points;

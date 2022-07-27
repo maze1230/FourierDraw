@@ -16,8 +16,8 @@ if (player) {
   playButton.onclick = () => {
     if (illust) {
       const points = illust.getPoints();
-      const fs2d = new FourierSeries2D(points, 5);
 
+      const fs2d = new FourierSeries2D(points, 10000);
       const fourier_points = fs2d.getPoints(60);
 
       player.setPoints(fourier_points);
