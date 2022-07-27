@@ -3,7 +3,7 @@ import { FourierSeries } from "./fourier_series";
 
 type KeyPoint = "x" | "y" | "time";
 
-export class FourierSeriesExpansion2D {
+export class FourierSeries2D {
   num_terms: number;
 
   xs: Float64Array;
