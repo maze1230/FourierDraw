@@ -17,11 +17,18 @@ if (player) {
     if (illust) {
       const points = illust.getPoints();
 
-      const fs2d = new FourierSeries2D(points, 10000);
+      const fs2d = new FourierSeries2D(points, 100);
       const fourier_points = fs2d.getPoints(60);
 
       player.setPoints(fourier_points);
-      requestAnimationFrame(player.play.bind(player));
+
+      /*
+        TODO:
+        If we call requestAnimationFrame here,
+          player.play receives timestamp of the time when this button clicked.
+        Therefore, I pass performance.now() directly to player.play() but this is quickfix.
+      */
+      player.play(performance.now());
     }
   }
 }
