@@ -29,9 +29,11 @@ export class FourierSeries2D {
     this.FSy = new FourierSeries(this.ts, this.ys, num_terms);
   }
 
-  getPoints(fps: number): Point[] {
-    const { xs: ts, ys: xs } = this.FSx.getPoints(undefined, 60);
-    const { ys: ys } = this.FSy.getPoints(ts);
+  getPoints(range: {from: number, to: number}, fps: number): Point[] {
+    const ts = FourierSeries.getSamplingPoints(range, fps);
+
+    const xs = this.FSx.calcPoints(ts);
+    const ys = this.FSy.calcPoints(ts);
 
     const points: Point[] = [];
 

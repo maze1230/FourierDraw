@@ -94,16 +94,36 @@ export class Illust {
   }
 
   mouseUpHandler(e: MouseEvent) {
-    const { x, y } = this.position(e);
-    console.log(x + ", " + y + ": mouseUp");
-    this.addPoint(e);
-    this.penIsDown = false;
+    if (this.penIsDown) {
+      const { x, y } = this.position(e);
+      console.log(x + ", " + y + ": mouseUp");
+      this.addPoint(e);
+      this.penIsDown = false;
 
-    console.log("elapsed time: " + this.points[this.points.length - 1].time);
-    console.log("No. of records: " + this.points.length);
+      console.log("elapsed time: " + this.points[this.points.length - 1].time);
+      console.log("No. of records: " + this.points.length);
+    }
   }
 
-  getPoints(): Point[] {
-    return this.points;
+  getPoints(removeGibbsFlag: boolean = false): Point[] {
+    if (removeGibbsFlag) {
+      const beforeFront: Point = { ...this.points[0] };
+      const afterEnd: Point = { ...this.points[this.points.length - 1] };
+
+      beforeFront.time -= 500;
+      afterEnd.time += 500;
+
+      return [beforeFront].concat(this.points, [afterEnd]);
+    } else {
+      return this.points;
+    }
+  }
+
+  getDrawPeriod(): number {
+    if (this.points.length > 0) {
+      return this.points[this.points.length - 1].time - this.points[0].time;
+    } else {
+      return 0;
+    }
   }
 }
