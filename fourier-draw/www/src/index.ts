@@ -13,18 +13,24 @@ const player = playCanvas ? new Player(playCanvas) : null;
 const playButton = document.getElementById('player-button') as HTMLButtonElement;
 
 const removeGibbsCheckBox = document.getElementById('remove-gibbs-checkbox') as HTMLInputElement;
-const termNumSlider = document.getElementById('term-num-slider') as HTMLInputElement;
+const termNumInput = document.getElementById('term-num-input') as HTMLInputElement;
 const curretTermNum = document.getElementById('current-term-num') as HTMLElement;
 
-termNumSlider.addEventListener('input',
+termNumInput.addEventListener('input',
   (e) => {
-    curretTermNum.innerText = termNumSlider.value;
+    const termNum = parseInt(termNumInput.value);
+    if (1 <= termNum && termNum <= 100000) {
+      curretTermNum.innerText = "✔";
+    } else {
+      curretTermNum.innerText = "✗";
+    }
   }
 );
 
 if (player) {
   playButton.onclick = () => {
-    if (illust) {
+    const termNum = parseInt(termNumInput.value);
+    if (illust && 1 <= termNum && termNum <= 100000) {
       const points = illust.getPoints(removeGibbsCheckBox.checked);
       const drawTimeRange = {
         from: 0,
@@ -32,7 +38,7 @@ if (player) {
       };
       console.log(points.length, drawTimeRange);
 
-      const fs2d = new FourierSeries2D(points, parseInt(termNumSlider.value));
+      const fs2d = new FourierSeries2D(points, termNum);
       const fourier_points = fs2d.getPoints(drawTimeRange, 60);
 
       player.setPoints(fourier_points);
