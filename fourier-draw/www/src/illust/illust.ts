@@ -110,8 +110,10 @@ export class Illust {
       const beforeFront: Point = { ...this.points[0] };
       const afterEnd: Point = { ...this.points[this.points.length - 1] };
 
-      beforeFront.time -= 500;
-      afterEnd.time += 500;
+      const period = afterEnd.time;
+
+      beforeFront.time -= period / 10;
+      afterEnd.time += period / 10;
 
       return [beforeFront].concat(this.points, [afterEnd]);
     } else {

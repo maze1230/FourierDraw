@@ -8,11 +8,19 @@ import { FourierSeries2D } from "./fourier/fourier_series2d";
 const drawCanvas = document.getElementById('draw-canvas') as HTMLCanvasElement;
 const illust = drawCanvas ? new Illust(drawCanvas) : null;
 
-const removeGibbsCheckBox = document.getElementById('remove_gibbs_checkbox') as HTMLInputElement;
-
 const playCanvas = document.getElementById('play-canvas') as HTMLCanvasElement;
 const player = playCanvas ? new Player(playCanvas) : null;
 const playButton = document.getElementById('player-button') as HTMLButtonElement;
+
+const removeGibbsCheckBox = document.getElementById('remove-gibbs-checkbox') as HTMLInputElement;
+const termNumSlider = document.getElementById('term-num-slider') as HTMLInputElement;
+const curretTermNum = document.getElementById('current-term-num') as HTMLElement;
+
+termNumSlider.addEventListener('input',
+  (e) => {
+    curretTermNum.innerText = termNumSlider.value;
+  }
+);
 
 if (player) {
   playButton.onclick = () => {
@@ -24,7 +32,7 @@ if (player) {
       };
       console.log(points.length, drawTimeRange);
 
-      const fs2d = new FourierSeries2D(points, 100);
+      const fs2d = new FourierSeries2D(points, parseInt(termNumSlider.value));
       const fourier_points = fs2d.getPoints(drawTimeRange, 60);
 
       player.setPoints(fourier_points);

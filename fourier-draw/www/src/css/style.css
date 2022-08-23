@@ -1,11 +1,14 @@
-#draw-canvas {
-  display: flex;
+.canvas-wrap {
+  width: fit-content;
   margin: 50px auto;
+}
+
+#draw-canvas {
+  display: block;
   border: 1px solid #cccccc;
 }
 
 #play-canvas {
-  display: flex;
-  margin: 50px auto;
+  display: block;
   border: 1px solid #cccccc;
 }
