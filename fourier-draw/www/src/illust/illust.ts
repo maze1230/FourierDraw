@@ -5,6 +5,8 @@ export class Illust {
   startTime: number | undefined;
   penIsDown: boolean;
 
+  passedTimeIntervalId: NodeJS.Timer | undefined;
+
   canvas: HTMLCanvasElement;
   ctx: CanvasRenderingContext2D | null;
   canvasRect: DOMRect;
@@ -80,6 +82,19 @@ export class Illust {
 
     const point = this.addPoint(e);
     this.penIsDown = true;
+
+    if (this.passedTimeIntervalId) {
+      clearInterval(this.passedTimeIntervalId);
+    }
+    this.passedTimeIntervalId = setInterval(() => {
+      const passedTimeElement = document.getElementById('passed-drawing-time') as HTMLElement;
+      const passedTime = Date.now() - this.startTime!;
+      passedTimeElement.innerText = (passedTime / 1000).toString();
+
+      if (passedTime >= 10000) {
+        this.mouseUpHandler(undefined);
+      }
+    }, 1000 / 30);
   }
 
   mouseMoveHandler(e: MouseEvent) {
@@ -93,11 +108,15 @@ export class Illust {
     }
   }
 
-  mouseUpHandler(e: MouseEvent) {
+  mouseUpHandler(e: MouseEvent | undefined) {
     if (this.penIsDown) {
-      const { x, y } = this.position(e);
-      console.log(x + ", " + y + ": mouseUp");
-      this.addPoint(e);
+      clearInterval(this.passedTimeIntervalId);
+
+      if (e) {
+        const { x, y } = this.position(e);
+        console.log(x + ", " + y + ": mouseUp");
+        this.addPoint(e);
+      }
       this.penIsDown = false;
 
       console.log("elapsed time: " + this.points[this.points.length - 1].time);
