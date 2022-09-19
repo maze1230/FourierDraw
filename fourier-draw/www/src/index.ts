@@ -15,6 +15,7 @@ const player = playCanvas ? new Player(playCanvas) : null;
 const playButton = document.getElementById('player-button') as HTMLButtonElement;
 
 const removeGibbsCheckBox = document.getElementById('remove-gibbs-checkbox') as HTMLInputElement;
+const useWasmCheckBox = document.getElementById('use-wasm-checkbox') as HTMLInputElement;
 const termNumInput = document.getElementById('term-num-input') as HTMLInputElement;
 const curretTermNum = document.getElementById('current-term-num') as HTMLElement;
 
@@ -40,10 +41,19 @@ if (player) {
       };
       console.log(points.length, drawTimeRange);
 
-      const fs2d = new FourierSeries2D(points, termNum);
+      const beforeFSExpansion = Date.now();
+      const fs2d = new FourierSeries2D(points, termNum, useWasmCheckBox.checked);
+      const afterFSExpansion = Date.now();
+
+      console.log("Fourier Series Expansion takes:", afterFSExpansion - beforeFSExpansion);
+
       const fourier_points = fs2d.getPoints(drawTimeRange, 60);
 
+      const afterGetPoints = Date.now();
+      console.log("Points calculation takes:", afterGetPoints - afterFSExpansion);
+
       player.setPoints(fourier_points);
+
 
       /*
         TODO:
