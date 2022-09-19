@@ -1,6 +1,8 @@
 import * as wasm from "fourier-draw-wasm";
 import "./css/style.css"
 
+import { convertTermStringToInteger } from './utils';
+
 import { Illust } from "./illust/illust";
 import { Player } from "./illust/player";
 import { FourierSeries2D } from "./fourier/fourier_series2d";
@@ -18,7 +20,7 @@ const curretTermNum = document.getElementById('current-term-num') as HTMLElement
 
 termNumInput.addEventListener('input',
   (e) => {
-    const termNum = parseInt(termNumInput.value);
+    const termNum = convertTermStringToInteger(termNumInput.value);
     if (1 <= termNum && termNum <= 100000) {
       curretTermNum.innerText = "✔";
     } else {
@@ -29,7 +31,7 @@ termNumInput.addEventListener('input',
 
 if (player) {
   playButton.onclick = () => {
-    const termNum = parseInt(termNumInput.value);
+    const termNum = convertTermStringToInteger(termNumInput.value);
     if (illust && 1 <= termNum && termNum <= 100000) {
       const points = illust.getPoints(removeGibbsCheckBox.checked);
       const drawTimeRange = {
