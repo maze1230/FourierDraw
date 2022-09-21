@@ -16,8 +16,8 @@ static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 #[wasm_bindgen]
 pub struct FourierSeries {
     n_points: usize,
-    num_terms: usize,
-    period: f32,
+    pub num_terms: usize,
+    pub period: f32,
     A: Vec<f32>,
     B: Vec<f32>,
 }

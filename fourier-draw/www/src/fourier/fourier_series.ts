@@ -1,24 +1,37 @@
+import * as utils from '../utils';
+
 export class FourierSeries {
-  xs_sample: Float32Array;
-  ys_sample: Float32Array;
+  xs_sample: Float32Array | undefined;
+  ys_sample: Float32Array | undefined;
   A: Float32Array;
   B: Float32Array;
   period: number;
   num_terms: number;
 
-  constructor(xs: Float32Array, ys: Float32Array, num_terms: number = 10) {
+  constructor(
+    xs: Float32Array | undefined = undefined,
+    ys: Float32Array | undefined = undefined,
+    num_terms: number = 10
+  ) {
     this.xs_sample = xs;
     this.ys_sample = ys;
     this.num_terms = num_terms;
 
     this.A = new Float32Array(this.num_terms + 1);
     this.B = new Float32Array(this.num_terms + 1);
-    this.period = this.xs_sample[this.xs_sample.length - 1] - this.xs_sample[0];
+    if (!this.xs_sample) {
+      this.period = 0;
+    } else {
+      this.period = this.xs_sample[this.xs_sample.length - 1] - this.xs_sample[0];
+    }
 
     this.calc();
   }
 
   calc() {
+    if (!this.xs_sample || !this.ys_sample || this.period === 0) {
+      return;
+    }
     for (let n = 0; n <= this.num_terms; n++) {
       this.A[n] = 0;
       this.B[n] = 0;
@@ -87,5 +100,36 @@ export class FourierSeries {
     }
 
     return ys;
+  }
+
+  convertToByteArray(): Uint8Array {
+    const byte_A = new Uint8Array(this.A.buffer);
+    const byte_B = new Uint8Array(this.B.buffer);
+    const _period_f32 = new Float32Array([this.period]);
+    const period_uint8 = new Uint8Array(_period_f32.buffer);
+
+    return utils.concatUint8Array([byte_A, byte_B, period_uint8]);
+  }
+
+  static fromByteArray(n: number, array: Uint8Array): FourierSeries | undefined {
+    if ((n + 1) * 2 * 4 + 4 != array.length) {
+      return undefined;
+    }
+
+    const fs = new FourierSeries();
+
+    const byte_A = array.slice(0, 4 * (n + 1));
+    const byte_B = array.slice(4 * (n + 1), 4 * 2 * (n + 1));
+    const period_uint8 = array.slice(4 * 2 * (n + 1), 4 * 2 * (n + 1) + 4);
+    const period = new Float32Array(period_uint8.buffer);
+
+    fs.A = new Float32Array(byte_A.buffer);
+    fs.B = new Float32Array(byte_B.buffer);
+    fs.period = period[0];
+    fs.num_terms = n;
+
+    console.log(fs.A, fs.B);
+
+    return fs;
   }
 }

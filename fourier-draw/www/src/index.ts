@@ -42,17 +42,18 @@ if (player) {
       console.log(points.length, drawTimeRange);
 
       const beforeFSExpansion = Date.now();
-      const fs2d = new FourierSeries2D(points, termNum, useWasmCheckBox.checked);
+      const fs2d = new FourierSeries2D(points, termNum, drawTimeRange, useWasmCheckBox.checked);
       const afterFSExpansion = Date.now();
 
       console.log("Fourier Series Expansion takes:", afterFSExpansion - beforeFSExpansion);
 
-      const fourier_points = fs2d.getPoints(drawTimeRange, 60);
+      const fourier_points = fs2d.getPoints(60);
 
       const afterGetPoints = Date.now();
       console.log("Points calculation takes:", afterGetPoints - afterFSExpansion);
 
       player.setPoints(fourier_points);
+
 
 
       /*
