@@ -39,8 +39,6 @@ if (player) {
         from: 0,
         to: illust.getDrawPeriod()
       };
-      console.log(points.length, drawTimeRange);
-
       const beforeFSExpansion = Date.now();
       const fs2d = new FourierSeries2D(points, termNum, drawTimeRange, useWasmCheckBox.checked);
       const afterFSExpansion = Date.now();

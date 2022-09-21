@@ -22,8 +22,6 @@ export class Illust {
     this.canvas.addEventListener("mousedown", this.mouseDownHandler.bind(this));
     this.canvas.addEventListener("mousemove", this.mouseMoveHandler.bind(this));
     this.canvas.addEventListener("mouseup", this.mouseUpHandler.bind(this));
-
-    console.log("canvasRect: " + this.canvasRect.left + ", " + this.canvasRect.top);
   }
 
   private initialize() {
@@ -77,7 +75,6 @@ export class Illust {
       return;
     }
 
-    console.log(x + ", " + y + ": mouseDown");
     this.initialize();
 
     const point = this.addPoint(e);
@@ -114,13 +111,9 @@ export class Illust {
 
       if (e) {
         const { x, y } = this.position(e);
-        console.log(x + ", " + y + ": mouseUp");
         this.addPoint(e);
       }
       this.penIsDown = false;
-
-      console.log("elapsed time: " + this.points[this.points.length - 1].time);
-      console.log("No. of records: " + this.points.length);
     }
   }
 
