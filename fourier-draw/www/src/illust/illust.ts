@@ -19,9 +19,10 @@ export class Illust {
     this.ctx = this.canvas.getContext('2d');
     this.canvasRect = this.canvas.getBoundingClientRect();
 
-    this.canvas.addEventListener("mousedown", this.mouseDownHandler.bind(this));
-    this.canvas.addEventListener("mousemove", this.mouseMoveHandler.bind(this));
-    this.canvas.addEventListener("mouseup", this.mouseUpHandler.bind(this));
+    this.canvas.addEventListener("pointerdown", this.pointerDownHandler.bind(this));
+    this.canvas.addEventListener("pointermove", this.pointerMoveHandler.bind(this));
+    this.canvas.addEventListener("pointerup", this.pointerUpHandler.bind(this));
+    this.canvas.addEventListener("pointerout", this.pointerUpHandler.bind(this));
   }
 
   private initialize() {
@@ -36,11 +37,11 @@ export class Illust {
     this.ctx?.beginPath();
   }
 
-  private position(e: MouseEvent): { x: number, y: number } {
+  private position(e: PointerEvent): { x: number, y: number } {
     const x = e.offsetX;
     const y = e.offsetY;
 
-    return {x, y};
+    return { x, y };
   }
 
   private inCanvas({ x, y }: { x: number, y: number }): boolean {
@@ -50,7 +51,7 @@ export class Illust {
     return true;
   }
 
-  addPoint(e: MouseEvent): Point {
+  addPoint(e: PointerEvent): Point {
     const timestamp: number = Date.now();
 
     if (!this.startTime) {
@@ -68,7 +69,7 @@ export class Illust {
     return this.points[this.points.length - 1];
   }
 
-  mouseDownHandler(e: MouseEvent) {
+  pointerDownHandler(e: PointerEvent) {
     const { x, y } = this.position(e);
 
     if (!this.inCanvas({ x, y })) {
@@ -89,12 +90,12 @@ export class Illust {
       passedTimeElement.innerText = (passedTime / 1000).toString();
 
       if (passedTime >= 10000) {
-        this.mouseUpHandler(undefined);
+        this.pointerUpHandler(undefined);
       }
     }, 1000 / 30);
   }
 
-  mouseMoveHandler(e: MouseEvent) {
+  pointerMoveHandler(e: PointerEvent) {
     if (this.penIsDown && this.ctx && this.inCanvas(this.position(e))) {
       const lastPoint = this.points[this.points.length - 1];
       const point = this.addPoint(e);
@@ -105,7 +106,7 @@ export class Illust {
     }
   }
 
-  mouseUpHandler(e: MouseEvent | undefined) {
+  pointerUpHandler(e: PointerEvent | undefined) {
     if (this.penIsDown) {
       clearInterval(this.passedTimeIntervalId);
 
