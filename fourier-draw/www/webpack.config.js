@@ -15,7 +15,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.ts$/,
+        test: /\.(ts|tsx)$/,
         use: 'ts-loader',
         include: [path.resolve(__dirname, 'src')],
       },
@@ -26,7 +26,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.ts', '.js', '.wasm'],
+    extensions: ['.ts', '.tsx', '.js', '.wasm'],
   },
 
   plugins: [

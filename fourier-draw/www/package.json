@@ -16,8 +16,18 @@
   "author": "maze <pazzle1230@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@typescript-eslint/parser": "^5.38.0",
     "css-loader": "^6.7.1",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-react": "^7.31.8",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-webpack-plugin": "^3.2.0",
     "html-webpack-plugin": "^5.5.0",
+    "prettier": "^2.7.1",
     "style-loader": "^3.3.1",
     "ts-loader": "^9.3.1",
     "typescript": "^4.7.4",
@@ -26,6 +36,9 @@
     "webpack-dev-server": "^4.9.3"
   },
   "dependencies": {
-    "fourier-draw-wasm": "file:../pkg"
+    "eslint": "^8.23.1",
+    "fourier-draw-wasm": "file:../pkg",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }

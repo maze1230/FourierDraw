@@ -1,11 +1,14 @@
 import { Point } from "./point";
 
-export class Player {
+export default class Player {
   points: Point[];
+
   startTime: number | undefined;
+
   lastPointIdx: number;
 
   canvas: HTMLCanvasElement;
+
   ctx: CanvasRenderingContext2D | null;
 
   constructor(canvas: HTMLCanvasElement) {
@@ -33,7 +36,7 @@ export class Player {
     }
 
     const elapsedTime = timestamp - this.startTime;
-    for (let i = this.lastPointIdx + 1; i < this.points.length && this.points[i].time <= elapsedTime; i++) {
+    for (let i = this.lastPointIdx + 1; i < this.points.length && this.points[i].time <= elapsedTime; i += 1) {
       const lastPoint = this.points[this.lastPointIdx];
       const point = this.points[i];
 

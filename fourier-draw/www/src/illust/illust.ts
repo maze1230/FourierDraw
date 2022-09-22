@@ -1,14 +1,18 @@
 import { Point } from "./point"
 
-export class Illust {
+export default class Illust {
   points: Point[];
+
   startTime: number | undefined;
+
   penIsDown: boolean;
 
   passedTimeIntervalId: NodeJS.Timer | undefined;
 
   canvas: HTMLCanvasElement;
+
   ctx: CanvasRenderingContext2D | null;
+
   canvasRect: DOMRect;
 
   constructor(canvas: HTMLCanvasElement) {
@@ -37,7 +41,7 @@ export class Illust {
     this.ctx?.beginPath();
   }
 
-  private position(e: PointerEvent): { x: number, y: number } {
+  private static position(e: PointerEvent): { x: number, y: number } {
     const x = e.offsetX;
     const y = e.offsetY;
 
@@ -58,7 +62,7 @@ export class Illust {
       this.startTime = timestamp;
     }
 
-    const { x, y } = this.position(e);
+    const { x, y } = Illust.position(e);
 
     this.points.push({
       x,
@@ -70,7 +74,7 @@ export class Illust {
   }
 
   pointerDownHandler(e: PointerEvent) {
-    const { x, y } = this.position(e);
+    const { x, y } = Illust.position(e);
 
     if (!this.inCanvas({ x, y })) {
       return;
@@ -96,7 +100,7 @@ export class Illust {
   }
 
   pointerMoveHandler(e: PointerEvent) {
-    if (this.penIsDown && this.ctx && this.inCanvas(this.position(e))) {
+    if (this.penIsDown && this.ctx && this.inCanvas(Illust.position(e))) {
       const lastPoint = this.points[this.points.length - 1];
       const point = this.addPoint(e);
 
@@ -111,14 +115,14 @@ export class Illust {
       clearInterval(this.passedTimeIntervalId);
 
       if (e) {
-        const { x, y } = this.position(e);
+        const { x, y } = Illust.position(e);
         this.addPoint(e);
       }
       this.penIsDown = false;
     }
   }
 
-  getPoints(removeGibbsFlag: boolean = false): Point[] {
+  getPoints(removeGibbsFlag = false): Point[] {
     if (removeGibbsFlag) {
       const beforeFront: Point = { ...this.points[0] };
       const afterEnd: Point = { ...this.points[this.points.length - 1] };
@@ -129,16 +133,14 @@ export class Illust {
       afterEnd.time += period / 10;
 
       return [beforeFront].concat(this.points, [afterEnd]);
-    } else {
-      return this.points;
     }
+    return this.points;
   }
 
   getDrawPeriod(): number {
     if (this.points.length > 0) {
       return this.points[this.points.length - 1].time - this.points[0].time;
-    } else {
-      return 0;
     }
+    return 0;
   }
 }

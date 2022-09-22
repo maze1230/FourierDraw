@@ -5,13 +5,13 @@ export function convertTermStringToInteger(termStr: string): number {
    *    return -1
    */
 
-  if (termStr.length == 0 || termStr.length >= 7) {
+  if (termStr.length === 0 || termStr.length >= 7) {
     return -1;
   }
-  
+
   const converted = Number(termStr);
 
-  if (isNaN(converted) || !Number.isInteger(converted)) {
+  if (Number.isNaN(converted) || !Number.isInteger(converted)) {
     return -1;
   }
 
@@ -33,9 +33,9 @@ export function convertBase64ToByteArray(base64Str: string): Uint8Array | undefi
 }
 
 export function concatUint8Array(arrays: Uint8Array[]): Uint8Array {
-  const sum_len = arrays.map(arr => arr.length).reduce((sum, cur) => sum + cur);
+  const sumLen = arrays.map(arr => arr.length).reduce((sum, cur) => sum + cur);
 
-  const ret = new Uint8Array(sum_len);
+  const ret = new Uint8Array(sumLen);
   arrays.reduce((now_len: number, arr: Uint8Array) => {
     ret.set(arr, now_len);
     return now_len + arr.length;
