@@ -1,8 +1,19 @@
+import { Box } from '@mui/material';
 import React from 'react';
 
-function App() {
+import IllustProducer from './components/IllustProducer';
+
+const App = () => {
   return (
-    <h1>Using React</h1>
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+    >
+      <Box sx={{ width: "740px" }}>
+        <IllustProducer />
+      </Box>
+    </Box>
   );
 };
 

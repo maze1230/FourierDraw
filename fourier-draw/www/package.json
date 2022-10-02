@@ -38,6 +38,9 @@
     "webpack-dev-server": "^4.9.3"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
+    "@mui/material": "^5.10.7",
     "eslint": "^8.23.1",
     "fourier-draw-wasm": "file:../pkg",
     "react": "^18.2.0",
