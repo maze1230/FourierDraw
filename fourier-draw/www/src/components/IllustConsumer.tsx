@@ -53,10 +53,10 @@ const IllustConsumer = ({
         <Player fourierSeries2D={fourierSeries2D} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <IllustExporter />
+        <IllustExporter fourierSeries2D={fourierSeries2D} />
       </TabPanel>
     </BorderBox>
-  )
+  );
 };
 
 export default IllustConsumer;
