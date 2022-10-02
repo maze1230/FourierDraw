@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { Box } from "@mui/material";
-import { Point } from "illust/point";
 import React, { useRef } from "react";
+
+import { Box } from "@mui/material";
+import { Point } from "../illust/Point";
 
 const CANVAS_WIDTH = 640;
 const CANVAS_HEIGHT = 640;
@@ -59,7 +60,7 @@ export const DrawCanvas = ({
 
     const { x, y } = getPosition(e);
     const point: Point = {
-      x, y, time: (timestamp - startTime.current!) / 1000
+      x, y, time: timestamp - startTime.current!
     };
 
     pointsRef.current.push(point);
@@ -96,10 +97,10 @@ export const DrawCanvas = ({
       clearInterval(passedTimeIntervalId.current);
     }
     passedTimeIntervalId.current = setInterval(() => {
-      const passedTime = (Date.now() - startTime.current!) / 1000;
-      setPassedTime(passedTime);
+      const passedTime = Date.now() - startTime.current!;
+      setPassedTime(passedTime / 1000);
 
-      if (passedTime >= MAX_DRAWING_SECS) {
+      if (passedTime >= MAX_DRAWING_SECS * 1000) {
         handlePointerUp(undefined);
       }
     }, 1000 / 30);

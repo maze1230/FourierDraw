@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { Box, Button, Checkbox, CircularProgress, FormControlLabel, FormGroup, Modal, Stack, TextField, Typography } from "@mui/material";
 
-import { Point } from "../illust/point";
+import { Point } from "../illust/Point";
 import { DrawCanvas, MAX_DRAWING_SECS } from "./DrawCanvas";
 
 import { convertTermStringToInteger, validateTermString } from "../utils";

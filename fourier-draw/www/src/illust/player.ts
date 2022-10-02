@@ -1,4 +1,4 @@
-import { Point } from "./point";
+import { Point } from "./Point";
 
 export default class Player {
   points: Point[];
@@ -36,6 +36,7 @@ export default class Player {
     }
 
     const elapsedTime = timestamp - this.startTime;
+
     for (let i = this.lastPointIdx + 1; i < this.points.length && this.points[i].time <= elapsedTime; i += 1) {
       const lastPoint = this.points[this.lastPointIdx];
       const point = this.points[i];

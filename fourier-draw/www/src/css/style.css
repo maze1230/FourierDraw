@@ -8,7 +8,7 @@
   touch-action: none;
 }
 
-#play-canvas {
+#player-canvas {
   display: block;
   border: 1px solid #cccccc;
 }

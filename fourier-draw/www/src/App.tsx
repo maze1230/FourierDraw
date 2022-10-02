@@ -1,7 +1,8 @@
-import { Box } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import FourierSeries2D from 'fourier/fourier_series2d';
 import React, { useState } from 'react';
 
+import IllustConsumer from './components/IllustConsumer';
 import IllustProducer from './components/IllustProducer';
 
 import "./css/style.css";
@@ -15,9 +16,10 @@ const App = () => {
       justifyContent="center"
       alignItems="center"
     >
-      <Box sx={{ width: "740px" }}>
+      <Stack spacing={10} sx={{ width: "740px" }}>
         <IllustProducer setFourierSeries2D={setFourierSeries2D} />
-      </Box>
+        <IllustConsumer fourierSeries2D={fourierSeries2D} />
+      </Stack>
     </Box>
   );
 };

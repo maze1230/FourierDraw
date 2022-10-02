@@ -1,4 +1,4 @@
-import { Point } from "illust/point";
+import { Point } from "illust/Point";
 
 import * as utils from '../utils';
 
