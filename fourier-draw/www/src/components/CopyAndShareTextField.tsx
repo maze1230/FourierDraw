@@ -43,19 +43,13 @@ const CopyTextField = ({
                 </IconButton>
               </Tooltip>
             ) : ""}
-            <Tooltip
-              arrow
-              placement="top"
-              title="Tweet"
+            <TwitterShareButton
+              url="https://google.com"
+              title={text}
+              via="FourierDraw"
             >
-              <TwitterShareButton
-                url="https://google.com"
-                title={text}
-                via="FourierDraw"
-              >
-                <Twitter />
-              </TwitterShareButton>
-            </Tooltip>
+              <Twitter />
+            </TwitterShareButton>
           </Stack>
         </InputAdornment>
       }

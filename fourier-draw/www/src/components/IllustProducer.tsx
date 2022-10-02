@@ -53,7 +53,7 @@ const IllustProducer = ({
         <DrawForm setFourierSeries2D={setFourierSeries2D} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <IllustLoader />
+        <IllustLoader setFourierSeries2D={setFourierSeries2D} />
       </TabPanel>
     </BorderBox>
   )

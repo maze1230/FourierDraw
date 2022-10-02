@@ -5,7 +5,6 @@ import * as utils from '../utils';
 import FourierSeries from "./fourier_series";
 import FourierSeriesWasm from "./fourier_series_wasm";
 
-type KeyPoint = "x" | "y" | "time";
 
 export default class FourierSeries2D {
   num_terms: number;
