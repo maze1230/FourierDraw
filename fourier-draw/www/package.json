@@ -16,6 +16,8 @@
   "author": "maze <pazzle1230@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.6",
     "@typescript-eslint/parser": "^5.38.0",
     "css-loader": "^6.7.1",
     "eslint-config-airbnb": "^19.0.4",

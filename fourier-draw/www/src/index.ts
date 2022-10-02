@@ -1,4 +1,3 @@
-import * as wasm from "fourier-draw-wasm";
 import "./css/style.css";
 
 import { convertTermStringToInteger } from "./utils";
