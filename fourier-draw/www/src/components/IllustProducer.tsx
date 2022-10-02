@@ -1,9 +1,10 @@
 import { Box, Tab, Tabs } from '@mui/material';
+import FourierSeries2D from 'fourier/fourier_series2d';
 import React, { useState } from 'react';
 
-import DrawCanvas from './DrawCanvas';
+import DrawForm from './DrawForm';
 import IllustLoader from './IllustLoader';
-import BorderBox from './styled/BorderBox';
+import BorderBox from './styles/BorderBox';
 
 type TabPanelProps = {
   children?: React.ReactNode;
@@ -29,7 +30,11 @@ const TabPanel = ({
     </div>
 );
 
-const IllustProducer = () => {
+const IllustProducer = ({
+  setFourierSeries2D
+}:{
+  setFourierSeries2D: React.Dispatch<React.SetStateAction<FourierSeries2D | undefined>>
+}) => {
   const [value, setValue] = useState(0);
 
   const handleChange = (e: React.SyntheticEvent, newValue: number) => {
@@ -45,7 +50,7 @@ const IllustProducer = () => {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <DrawCanvas />
+        <DrawForm setFourierSeries2D={setFourierSeries2D} />
       </TabPanel>
       <TabPanel value={value} index={1}>
         <IllustLoader />

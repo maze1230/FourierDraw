@@ -18,6 +18,16 @@ export function convertTermStringToInteger(termStr: string): number {
   return converted;
 }
 
+export function validateTermString(termStr: string): boolean {
+  const termNum = convertTermStringToInteger(termStr);
+
+  if (termNum === -1) {
+    return false;
+  }
+
+  return termNum >= 1 && termNum <= 100000;
+}
+
 export function convertByteArrayToBase64(byteArray: Uint8Array): string {
   return window.btoa(String.fromCharCode(...byteArray));
 }
