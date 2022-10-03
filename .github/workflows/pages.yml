@@ -34,6 +34,14 @@ jobs:
         uses: actions/configure-pages@v2
       - name: Setup Node.js environment
         uses: actions/setup-node@v3.5.0
+      - name: Install wasm-pack
+        run:  curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+      - name: Build wasm
+        run: cargo build
+        working-directory: fourier-draw
+      - run: wasm-pack build
+        working-directory: fourier-draw
+
       - name: Build
         run: cd fourier-draw/www && npm ci --force && npm run build
       - name: Upload artifact
