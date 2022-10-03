@@ -39,7 +39,7 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v3.5.0
       - name: Build
-        run: npm ci && npm run build
+        run: npm ci --force && npm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
