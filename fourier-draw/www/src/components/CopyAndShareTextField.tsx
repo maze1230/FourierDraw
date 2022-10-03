@@ -1,6 +1,6 @@
 import { IconButton, InputAdornment, OutlinedInput, Stack, Tooltip } from "@mui/material";
 import { ContentCopy, Twitter } from "@mui/icons-material";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { TwitterShareButton } from "react-share";
 
 const CopyTextField = ({
@@ -10,6 +10,7 @@ const CopyTextField = ({
 }) => {
   const [copied, setCopied] = useState(false);
   const isSupported = !!navigator.clipboard;
+  const shareButtonRef = useRef<HTMLButtonElement | null>(null);
 
   const onClick = () => {
     if (isSupported) {
@@ -19,6 +20,10 @@ const CopyTextField = ({
         setCopied(false);
       }, 2000);
     }
+  };
+
+  const onClickShare = () => {
+    shareButtonRef.current!.click();
   };
 
   return (
@@ -43,14 +48,19 @@ const CopyTextField = ({
                 </IconButton>
               </Tooltip>
             ) : ""}
-            <IconButton>
-              <TwitterShareButton
-                url="https://maze1230.github.io/FourierDraw/"
-                title={text}
-              >
-                <Twitter />
-              </TwitterShareButton>
+            <IconButton
+              onClick={onClickShare}
+            >
+              <Twitter />
             </IconButton>
+            <TwitterShareButton
+              url="https://maze1230.github.io/FourierDraw/"
+              title={text}
+              ref={shareButtonRef}
+              style={{ display: "none" }}
+            >
+              NOSIZE
+            </TwitterShareButton>
           </Stack>
         </InputAdornment>
       }
