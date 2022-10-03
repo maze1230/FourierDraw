@@ -37,9 +37,7 @@ jobs:
       - name: Install wasm-pack
         run:  curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
       - name: Build wasm
-        run: cargo build
-        working-directory: fourier-draw
-      - run: wasm-pack build
+        run: wasm-pack build
         working-directory: fourier-draw
 
       - name: Build
