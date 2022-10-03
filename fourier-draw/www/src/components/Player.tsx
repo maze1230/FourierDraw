@@ -1,6 +1,6 @@
 import { Box, Button, FormGroup } from "@mui/material";
 import FourierSeries2D from "fourier/fourier_series2d";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import PlayerCanvas from "./PlayerCanvas";
 
 import { Point } from "../illust/Point";
@@ -14,6 +14,16 @@ const Player = ({
   const [playTime, setPlayTime] = useState<number>(0);
   const [playing, setPlaying] = useState(false);
   const points = useRef<Point[]>([]);
+
+  const drawTimeRange = (!fourierSeries2D) ? { from: 0, to: 1 } : fourierSeries2D.drawTimeRange;
+  useEffect(() => {
+    if (fourierSeries2D) {
+      points.current = fourierSeries2D.getPoints(60, drawTimeRange);
+    } else {
+      points.current = [];
+    }
+    setPlayTime(0);
+  }, [fourierSeries2D]);
 
 
   if (!fourierSeries2D) {
@@ -39,12 +49,12 @@ const Player = ({
     );
   }
 
-  const drawTimeRange = fourierSeries2D?.drawTimeRange;
+
   const progress = Math.ceil((playTime - drawTimeRange.from) / (drawTimeRange.to - drawTimeRange.from) * 100);
 
   const onClick = () => {
+    // points.current = fourierSeries2D.getPoints(60, drawTimeRange);
     setPlaying((p) => !p);
-    points.current = fourierSeries2D.getPoints(60, drawTimeRange);
   };
 
   return (

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import { Box, Button, Checkbox, CircularProgress, FormControlLabel, FormGroup, Modal, Stack, TextField, Typography } from "@mui/material";
+import { useSnackbar } from "notistack";
 
 import { Point } from "../illust/Point";
 import { DrawCanvas, MAX_DRAWING_SECS } from "./DrawCanvas";
@@ -41,9 +42,11 @@ const DrawForm = ({
   const [ points, setPoints ] = useState<Point[]>([]);
 
   const [ passedTime, setPassedTime ] = useState<number>(0);
-  const [ termStr, setTermStr ] = useState<string>("10");
+  const [ termStr, setTermStr ] = useState<string>("7");
   const [ removeGibbs, setRemoveGibbs ] = useState<boolean>(false);
   const [ useWasm, setUseWasm ] = useState<boolean>(false);
+  
+  const { enqueueSnackbar } = useSnackbar();
 
   const progress = passedTime / MAX_DRAWING_SECS * 100;
 
@@ -71,6 +74,7 @@ const DrawForm = ({
     }
 
     setTimeout(() => {
+      const startCalculation = Date.now();
       setFourierSeries2D(
         new FourierSeries2D(
           pointsForConvert,
@@ -78,6 +82,14 @@ const DrawForm = ({
           { from: 0, to: drawingPeriod },
           useWasm
         )
+      );
+      const endCalculation = Date.now();
+      const elapsedTime = endCalculation - startCalculation;
+      enqueueSnackbar(
+        `Success! (takes ${elapsedTime / 1000} secs)`,
+        {
+          variant: "success",
+        }
       );
       if (termNum >= 1000) {
         setModalOpen(false);

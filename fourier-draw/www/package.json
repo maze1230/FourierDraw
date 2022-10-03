@@ -44,6 +44,7 @@
     "@mui/material": "^5.10.7",
     "eslint": "^8.23.1",
     "fourier-draw-wasm": "file:../pkg",
+    "notistack": "^2.0.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-share": "^4.4.0"

@@ -33,8 +33,8 @@ export function convertByteArrayToBase64(byteArray: Uint8Array): string {
 }
 
 export function convertBase64ToByteArray(base64Str: string): Uint8Array | undefined {
-  const raw: string = window.atob(base64Str);
   try {
+    const raw: string = window.atob(base64Str);
     const byteArray = new Uint8Array(raw.split("").map(c => c.charCodeAt(0)));
     return byteArray;
   } catch (e) {

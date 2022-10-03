@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
 import { Box, Button, Checkbox, FormControlLabel, FormGroup, TextField } from "@mui/material";
+import { useSnackbar } from "notistack";
+
 import FourierSeries2D from "../fourier/fourier_series2d";
 
 const IllustLoader = ({
@@ -10,6 +12,8 @@ const IllustLoader = ({
 }) => {
   const [base64Text, setBase64Text] = useState<string>("");
   const [ useWasm, setUseWasm ] = useState<boolean>(false);
+
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleChecked = (
     setState: React.Dispatch<React.SetStateAction<boolean>>
@@ -28,6 +32,19 @@ const IllustLoader = ({
 
     if (fs2d) {
       setFourierSeries2D(fs2d);
+      enqueueSnackbar(
+        "Successfully Imported Illust!",
+        {
+          variant: "success",
+        }
+      );
+    } else {
+      enqueueSnackbar(
+        "Failed to Import Illust",
+        {
+          variant: "error",
+        }
+      );
     }
   };
 

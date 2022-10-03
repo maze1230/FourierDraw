@@ -77,7 +77,9 @@ const PlayerCanvas = ({
       return () => {};
     }
 
-    animationRef.current = requestAnimationFrame(play);
+    animationRef.current = requestAnimationFrame(() => {
+      play(performance.now())
+    });
     return () => {
       finishAnimation();
     };
