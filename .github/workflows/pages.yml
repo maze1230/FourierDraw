@@ -20,10 +20,6 @@ concurrency:
   group: "pages"
   cancel-in-progress: true
 
-defaults:
-  run:
-    working-directory: fourier-draw/www
-
 jobs:
   # Single deploy job since we're just deploying
   deploy:
@@ -39,12 +35,12 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v3.5.0
       - name: Build
-        run: npm ci --force && npm run build
+        run: cd fourier-draw/www && npm ci --force && npm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
           # Upload entire repository
-          path: 'dist'
+          path: './fourier-draw/www/dist'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
