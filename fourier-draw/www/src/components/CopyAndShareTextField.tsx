@@ -43,13 +43,14 @@ const CopyTextField = ({
                 </IconButton>
               </Tooltip>
             ) : ""}
-            <TwitterShareButton
-              url="https://google.com"
-              title={text}
-              via="FourierDraw"
-            >
-              <Twitter />
-            </TwitterShareButton>
+            <IconButton>
+              <TwitterShareButton
+                url="https://maze1230.github.io/FourierDraw/"
+                title={text}
+              >
+                <Twitter />
+              </TwitterShareButton>
+            </IconButton>
           </Stack>
         </InputAdornment>
       }
